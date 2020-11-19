@@ -5,11 +5,12 @@ clc;clear
 %% Read in files
 addpath(genpath('.'))
 load('VTE_t2_mapping_images_final.mat')
+
 TE = 7*(1:23)./1000;
 TE = TE(4:end); % Removing the first 3 TE values for better overall fit
 TR = 4.5.*ones(size(TE));
 size_img = 128;
-image_data_final = im(:,:,4:end); % Removing the first 3 TEs again  
+image_data_final = mat2gray(im(:,:,4:end)); % Removing the first 3 TEs again  
 %image_data_final = image_data_final./1000; % for better curve fitting
 %% Define mask
 imagesc(squeeze(abs(image_data_final(:,:,3))))
@@ -33,6 +34,6 @@ for n1 = 1:size_img
     end
 end
 %% Display
-imagesc(T2_map);colormap hot; axis equal tight;%caxis([0 1.2]);
+imagesc(T2_map);colormap hot; axis equal tight;caxis([0, 1.5]);
 addToolbarExplorationButtons(gcf);colorbar
 title('T2 map')
